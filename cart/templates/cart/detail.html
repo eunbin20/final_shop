@@ -7,16 +7,16 @@
 {% endblock %}
 
 {% block content %}
-    <h3>Shopping cart</h3>
+    <h3>장바구니</h3>
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col" style="width: 25%;">Image</th>
-                <th scope="col">Product</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Remove</th>
-                <th scope="col">Unit price</th>
-                <th scope="col">Price</th>
+                <th scope="col" style="width: 25%;">사진</th>
+                <th scope="col">상품</th>
+                <th scope="col">수량</th>
+                <th scope="col">장바구니에서 삭제하기</th>
+                <th scope="col">가격</th>
+                <th scope="col">총 가격</th>
             </tr>
         </thead>
         <tbody>
@@ -35,11 +35,11 @@
                         {{ item.quantity_form.quantity }}
                         {{ item.quantity_form.is_update }}
                         <div class="row-fluid">
-                            <input type="submit" class="btn btn-primary pull-right form-control" value="Update">
+                            <input type="submit" class="btn btn-primary pull-right form-control" value="수정하기">
                         </div>
                     </form>
                 </td>
-                <td><a href="{% url 'cart:product_remove' product.id %}">Remove</a></td>
+                <td><a href="{% url 'cart:product_remove' product.id %}">삭제</a></td>
                 <td class="num">&#8361;{{item.price | floatformat:'0' | intcomma}}</td>
                 <td class="num">&#8361;{{item.total_price | floatformat:'0' | intcomma}}</td>
             </tr>
@@ -47,33 +47,33 @@
         {% endfor %}
 {% if cart.coupon %}  <!-- 카트에 쿠폰이 있을 경우에만 쿠폰 관련 할인 정보를 출력 -->
 		<tr class="subtotal">
-			<td>Subtotal</td>
+			<td>총 금액</td>
 			<td colspan="4"></td>
 			<td >&#8361;{{cart.get_product_total | floatformat:'0' | intcomma}}</td>
 		</tr>
 		<tr>
-			<td colspan="5">"{{ cart.coupon.code }}" coupon (&#8361;{{cart.coupon.amount | floatformat:'0' | intcomma}}) discounted</td>
+			<td colspan="5">"{{ cart.coupon.code }}" 쿠폰 ({{cart.coupon.amount | floatformat:'0' | intcomma}}원 할인)</td>
 			<td>&#8361;{{cart.get_discount_total | floatformat:'0' | intcomma}}</td>
     	</tr>
 	{% endif %}
 		<tr class="total">
-			<td>Total</td>
+			<td>결제 금액</td>
 			<td colspan="4"></td>
 			<td class="num">&#8361;{{cart.get_total_price | floatformat:'0' | intcomma}}</td>
 		</tr>
         </tbody>
     </table>
     <p>
-	Add Coupon:
+	쿠폰 추가하기
     </p>
     <form action='{% url "coupon:add" %}' method="post">
         {{ add_coupon }}
-        <input type="submit" value="Add">
+        <input type="submit" value="추가">
         {% csrf_token %}
     </form>
 
     <p class="text-right">
-        <a href='{% url "shop:product_all" %}' class="btn btn-secondary">Continue shopping</a>
-        <a href='{% url "orders:order_create" %}' class="btn btn-primary">Checkout</a>
+        <a href='{% url "shop:product_all" %}' class="btn btn-secondary">쇼핑 계속하기</a>
+        <a href='{% url "orders:order_create" %}' class="btn btn-primary">결제 하기</a>
     </p>
 {% endblock %}

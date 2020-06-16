@@ -24,31 +24,31 @@ Checkout
 <div class="row">
     <div class="col">
         <div class="alert alert-info" role="alert">
-          Your Order
+          주문 내역
         </div>
         <ul class="list-group">
             {% for item in cart %}
                 <li class="list-group-item">
-                    {{item.quantity}}X{{item.product.name}}
-                    <span>{{item.total_price}}</span>
+                    {{item.product.name}} X {{item.quantity}}개
+                    <span>{{item.total_price | floatformat:'0'}}원</span>
                 </li>
             {% endfor %}
             {% if cart.coupon %}
                 <li class="list-group-item">
                     {% load humanize %}
-                    "{{ cart.coupon.code }}" ({{ cart.coupon.amount }}% off)
-                    <span>- ${{ cart.get_total_discount | floatformat:'0' | intcomma }}</span>
+                    "{{ cart.coupon.code }}" ({{ cart.coupon.amount }}원 할인쿠폰)
+                    <span>총 - {{cart.get_discount_total | floatformat:'0' | intcomma}}원 할인</span>
                 </li>
             {% endif %}
         </ul>
-        <div class="alert alert-success" role="alert">Total : {{cart.get_total_price|floatformat:"2"}}</div>
+        <div class="alert alert-success" role="alert">결제 금액 : {{cart.get_total_price|floatformat:"0"}}원</div>
         <form action="" method="post" class="order-form">  <!-- form에 class 추가 -->
             {{form.as_p}}
             {% csrf_token %}
             <!-- hidden field 추가-->
             <input type="hidden" name="pre_order_id" value="0">
             <input type="hidden" name="amount" value="{{ cart.get_total_price|floatformat:'2' }}">
-            <input type="submit" class="btn btn-primary float-right" value="Place Order">
+            <input type="submit" class="btn btn-primary float-right" value="결제 진행하기">
         </form>
     </div>
 </div>

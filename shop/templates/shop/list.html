@@ -5,23 +5,23 @@
     <div class="row">
         <div class="col-2">
             <div class="list-group">
-                <a href="/" class="list-group-item {% if not current_category %}active{% endif %}">
-                    All
+                <a href="/" class="list-group-item {% if not current_category %}list-group-item-warning{% endif %}">
+                    모든 상품
                 </a>
                 {% for c in categories %}
                 <a href="{{c.get_absolute_url}}"
-                   class="list-group-item {% if current_category.slug == c.slug %}active{% endif %}">
+                   class="list-group-item {% if current_category.slug == c.slug %}list-group-item-warning{% endif %}">
                     {{c.name}}
                 </a>
                 {% endfor %}
             </div>
         </div>
         <div class="col">
-            <div class="alert alert-info" role="alert">
+            <div class="alert alert-secondary" role="alert">
                 {% if current_category %}
                     {{current_category.name}}
                 {% else %}
-                    All Products
+                    모든 상품 보기
                 {% endif %}
             </div>
             <div class="row">
@@ -37,7 +37,7 @@
 									&#8361;{{product.price | floatformat:'0' | intcomma}}
                                 </span>
                             </p>
-                            <a href="{{product.get_absolute_url}}" class="btn btn-primary">View Detail</a>
+                            <a href="{{product.get_absolute_url}}" class="btn btn-primary">더보기</a>
                         </div>
                     </div>
                 </div>

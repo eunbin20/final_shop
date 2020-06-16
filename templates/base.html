@@ -21,9 +21,9 @@
 </head>
 <body>
 {% load humanize %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFFFCC;">
     <!--  브랜드 로고 및 햄버거 메뉴 아이콘  -->
-    <a class="navbar-brand" href="/">Django Shop</a>
+    <a class="navbar-brand" href="/">EUNBIN's COSMETIC SHOP</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -35,19 +35,21 @@
             <!-- 로그인/로그아웃 -->
             <li class="nav-item">
                 {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'account_logout' %}">Logout</a> <!-- allauth 앱의 경로 이름 -->
+                    <a class="nav-link btn btn-outline-success" href="{% url 'account_logout' %}" style="float:right">로그아웃</a> <!-- allauth 앱의 경로 이름 -->
+                    <span class="navbar-text" style="float:right">{% firstof user.get_username %}님, 환영합니다.</span>
                 {% else %}
-                    <a class="nav-link" href="{% url 'account_login' %}">Login</a>   <!-- allauth 앱의 경로 이름 -->
+                <a class="nav-link btn btn-outline-success" href="{% url 'account_login' %}" style="float:right">로그인</a>   <!-- allauth 앱의 경로 이름 -->
+                <span class="navbar-text" style="float:right">로그인 해주세요.</span>
                 {% endif %}
             </li>
 
 	        <!-- 카트 요약 정보 -->
             <li class="nav-item active">
-            	<a class="nav-link btn btn-outline-success" href="{% url 'cart:detail' %}">Cart:
+            	<a class="nav-link btn btn-outline-danger" href="{% url 'cart:detail' %}">장바구니:
 		            {% if cart|length > 0 %}
 			            &#8361;{{ cart.get_total_price | floatformat:'0' | intcomma }} ({{cart|length}} items)
 		            {% else %}
-			            Empty
+			            비어있습니다.
 		            {% endif %}
 	            </a>
             </li>

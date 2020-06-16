@@ -10,17 +10,17 @@
             <div class="col">
                 <h3 class="display-6">{{product.name}}</h3><br/>
                 <p>
-                    <span class="badge badge-secondary">Price</span>
+                    <span class="badge badge-secondary">가격</span>
                     &#8361;{{product.price | floatformat:'0' | intcomma}}
                 </p>
                 <p>
-                    <span class="badge badge-secondary">Description</span>
+                    <span class="badge badge-secondary">상품 설명</span>
                     {{product.description|linebreaksbr}}
                 </p><br/>
                 <form action="{% url 'cart:product_add' product.id %}" method="post">  <!-- !!! -->
 	                {{add_to_cart}}                                                    <!-- !!! -->
 	                {% csrf_token %}
-	                <input type="submit" class="btn btn-primary btn-sm" value="Add to Cart">
+	                <input type="submit" class="btn btn-primary btn-sm" value="장바구니에 담기">
                 </form>
             </div>
         </div>

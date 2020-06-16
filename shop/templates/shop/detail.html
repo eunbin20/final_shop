@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Product Detail{% endblock %}
+{% block content %}
+    {% load humanize %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <img src="{{product.image.url}}" width="100%">
+            </div>
+            <div class="col">
+                <h3 class="display-6">{{product.name}}</h3><br/>
+                <p>
+                    <span class="badge badge-secondary">Price</span>
+                    &#8361;{{product.price | floatformat:'0' | intcomma}}
+                </p>
+                <p>
+                    <span class="badge badge-secondary">Description</span>
+                    {{product.description|linebreaksbr}}
+                </p><br/>
+                <form action="{% url 'cart:product_add' product.id %}" method="post">  <!-- !!! -->
+	                {{add_to_cart}}                                                    <!-- !!! -->
+	                {% csrf_token %}
+	                <input type="submit" class="btn btn-primary btn-sm" value="Add to Cart">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
